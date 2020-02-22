@@ -85,6 +85,7 @@ public class LibraryFormSearch extends HttpServlet {
             String publisher = rs.getString("publisher").trim();
             String deweyDecimal = rs.getString("deweydecimal").trim();
             String checkout = rs.getString("checkout");
+            String returndate = rs.getString("returndate");
 
             if (search_booktitle.isEmpty() || search_author.isEmpty() || search_publisher.isEmpty() || 
             	search_deweydecimal.isEmpty() || bookTitle.contains(search_booktitle) || 
@@ -105,6 +106,11 @@ public class LibraryFormSearch extends HttpServlet {
             	 out.println("<tr>\n" + "<td align=\"left\"><b>Checked Out?:</b></td>\n" +
                  "<td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n" +
                  "<td align=\"left\">" + checkout + "</td>\n</tr>\n");
+            	 if (checkout.equals("Y")) {
+            		 out.println("<tr>\n" + "<td align=\"left\"><b>Return Date:</b></td>\n" +
+            	 "<td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n" +
+            	 "<td align=\"left\">" + returndate + "</td>\n</tr>\n");
+            	 }
             	 out.println("</table>\n" + "<br />\n");
             	 out.println("----------------------------------------------------------------------------------------------------------------------------\n");
 	          }
