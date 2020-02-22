@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<style type="text/css">
+	* {
+		/* border: 1px dotted black !important; */
+        /* background-color: white !important; */
+      }
+      input[type=text] {
+        padding: 0.5em;
+      }
+	  header {
+        background-color: #214B24;
+        color: white;
+        padding: 1em 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+      }
+	  leftnav {
+    	line-height:30px;
+    	background-color:#eeeeee;
+    	height:350px;
+    	width:150px;
+    	float:left;
+    	padding:5px;	      
+	  }
+	  rightnav {
+		line-height:30px;
+		background-color:#eeeeee;
+		height:350px;
+		width:150px;
+		float:right;
+		padding:5px;
+	  }
+	  section {
+    	width:500px;
+    	float:left;
+    	padding:10px;	 	 
+	  }
+      footer {
+        line-height:45px;
+        background-color: #214B24;
+        color: white;
+        clear: both;
+        height:50px;
+        text-align: center;
+        opacity: 0.5;
+        padding:5px;'
+      }
+      input.search {
+      	width: 15em;  height: 3em;
+      }
+</style>
+</head>
+<main>
+<body>
+<header>
+<h1> Faketown Public Library </h1>
+<img src="https://media.istockphoto.com/photos/tree-picture-id543052538?k=6&m=543052538&s=612x612&w=0&h=YP7fBhjDe1dQGpj00Bu4ywsCjTljdW7dB_HKjp7_DDU=" width="70" height="70">
+</header>
+
+<leftnav>
+<p><font size="2.5"><b>Hours:</b></font></p>
+<p><font size="1"><b>Monday - Thur:</b> 7:00 am - 10:00 pm</font></p>
+<p><font size="1"><b>Friday:</b> 7:00 am - 6:00 pm</font></p>
+<p><font size="1"><b>Saturday - Sunday:</b> 10:00 am - 10:00 pm</font></p>
+</leftnav>
+
+<section>
+	<p><b>Please enter information about the book you wish to view:</b></p>
+	
+	<form action="LibraryFormSearch" method="POST">
+		<table>
+			<tr>
+				<td align="left">Book Title: </td>
+				<td align="center"></td>
+				<td align="right"><input type="text" name="booktitle"></td>
+			</tr>
+			<tr>
+				<td align="left">Author: </td>
+				<td align="center"></td>
+				<td align="right"><input type="text" name="author"></td>
+			</tr>
+			<tr>
+				<td align="left">Publisher: </td>
+				<td align="center"></td>
+				<td align="right"><input type="text" name="publisher"></td>
+			</tr>
+			<tr>
+				<td align="left">Dewey Decimal Number: </td>
+				<td align="center"></td>
+				<td align="right"><input type="text" name="deweydecimal"></td>
+			</tr>
+			<tr>
+			</tr>
+		</table>
+		<br />
+		<br />
+		<p text-align="center"><b>If you wish to see all of the titles our library offers, do not enter in any information into the fields above- just press 'Search'.</b></p>
+		<div style="text-align: center">
+			<input type="submit" value="Search" tabindex=2 class="search"/>
+		</div>
+	</form>
+
+</section>
+
+<rightnav>
+<p><font size="2.5"><b>Checkout Periods:</b></font></p>
+<p><font size="1"><b>Adult Books-</b>2 weeks</font></p>
+<p><font size="1"><b>Children's Books-</b>2 weeks</font>
+<p><font size="1"><b>Academic Papers/Magazines-</b>1 week</font></p>
+<p><font size="1"><b>Media-</b>2 weeks</font></p>
+</rightnav>
+</main>
+
+<footer>
+Official Library Search Engine for the Faketown Public Library @ 2020 City of Faketown
+</footer>
+</body>
+</html>
