@@ -31,13 +31,19 @@ public class LibraryFormSearch extends HttpServlet {
 		   String search_deweydecimal, HttpServletResponse response) throws IOException {
       response.setContentType("text/html");
       PrintWriter out = response.getWriter();
-      String title = "Database Result";
+      String title = "Search Results";
       String docType = "<!doctype html public \"-//w3c//dtd html 4.0 " + //
             "transitional//en\">\n"; //
       out.println(docType + //
             "<html>\n" + //
-            "<head><title>" + title + "</title></head>\n" + //
-            "<body bgcolor=\"#f0f0f0\">\n" + //
+            "<link href=\"https://fonts.googleapis.com/css?family=Lobster\" rel=\"stylesheet\" type=\"text/css\">\n" + //
+    		"<style>\n" + //
+            ".green-background {\n" + //
+    		"color: #214B24;\n" + //
+            "}\n" + //
+    		"</style>\n" + //
+            "<head class=\"green-background\"><title>" + title + "</title></head>\n" + //
+            "<body>\n" + //
             "<h1 align=\"center\">" + title + "</h1>\n");
 
       Connection connection = null;
@@ -52,29 +58,28 @@ public class LibraryFormSearch extends HttpServlet {
             preparedStatement = connection.prepareStatement(selectSQL);
          } else if (!(search_booktitle.isEmpty())) {
         	String selectSQL = "SELECT * FROM LibraryTable WHERE BOOKTITLE LIKE ?";
-	    	String theBooktitle = search_booktitle + "%";
+	    	String theBooktitle = "%" + search_booktitle + "%";
 	    	preparedStatement = connection.prepareStatement(selectSQL);
 	    	preparedStatement.setString(1, theBooktitle); 
          } else if (!(search_author.isEmpty())) {
         	String selectSQL = "SELECT * FROM LibraryTable WHERE AUTHOR LIKE ?";
-        	String theAuthor = search_author + "%";
+        	String theAuthor = "%" + search_author + "%";
         	preparedStatement = connection.prepareStatement(selectSQL);
         	preparedStatement.setString(1, theAuthor);
          } else if (!(search_publisher.isEmpty())) {
         	String selectSQL = "SELECT * FROM LibraryTable WHERE PUBLISHER LIKE ?";
-        	String thePublisher = search_publisher + "%";
+        	String thePublisher = "%" + search_publisher + "%";
         	preparedStatement = connection.prepareStatement(selectSQL);
         	preparedStatement.setString(1, thePublisher);
          } else if (!(search_deweydecimal.isEmpty())) {
         	String selectSQL = "SELECT * FROM LibraryTable WHERE DEWEYDECIMAL LIKE ?";
-        	String theDeweyDecimal = search_deweydecimal + "%";
+        	String theDeweyDecimal = "%" + search_deweydecimal + "%";
         	preparedStatement = connection.prepareStatement(selectSQL);
         	preparedStatement.setString(1, theDeweyDecimal);
          }
          ResultSet rs = preparedStatement.executeQuery();
 
          while (rs.next()) {
-            int id = rs.getInt("id");
             String bookTitle = rs.getString("booktitle").trim();
             String author = rs.getString("author").trim();
             String publisher = rs.getString("publisher").trim();
@@ -85,16 +90,31 @@ public class LibraryFormSearch extends HttpServlet {
             	search_deweydecimal.isEmpty() || bookTitle.contains(search_booktitle) || 
             	author.contains(search_author) || publisher.contains(search_publisher) ||
             	deweyDecimal.contains(search_deweydecimal)) {
-	             out.println("ID: " + id + ", ");
-	             out.println("Book Title: " + bookTitle + ", ");
-	             out.println("Author: " + author + ", ");
-	             out.println("Publisher: " + publisher + ", ");
-	             out.println("Dewey Decimal: " + deweyDecimal + ", ");
-	             out.println("Checked Out?: " + checkout + "<br>");
+            	 out.println("<table>\n" + "<tr>\n" + "<td align=\"left\"><b>Book Title:</b></td>\n" +
+            	 "<td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n" + 
+            	 "<td align=\"left\">" + bookTitle + "</td>\n</tr>\n");
+            	 out.println("<tr>\n" + "<td align=\"left\"><b>Author:</b></td>\n" +
+            	 "<td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n" +
+                 "<td align=\"left\">" + author + "</td>\n</tr>\n");
+            	 out.println("<tr>\n" + "<td align=\"left\"><b>Publisher:</b></td>\n" +
+                 "<td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n" +
+                 "<td align=\"left\">" + publisher + "</td>\n</tr>\n");
+            	 out.println("<tr>\n" + "<td align=\"left\"><b>Dewey Decimal:</b></td>\n" +
+                 "<td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n" +
+                 "<td align=\"left\">" + deweyDecimal + "</td>\n</tr>\n");
+            	 out.println("<tr>\n" + "<td align=\"left\"><b>Checked Out?:</b></td>\n" +
+                 "<td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n <td align=\"right\">&nbsp;</td>\n" +
+                 "<td align=\"left\">" + checkout + "</td>\n</tr>\n");
+            	 out.println("</table>\n" + "<br />\n");
+            	 out.println("----------------------------------------------------------------------------------------------------------------------------\n");
 	          }
          }
-         out.println("<a href=/LibrarySearch/libraryFormSearch.html>Search Data</a> <br>");
-         out.println("</body></html>");
+         out.println("<div style=\"text-align: center\">\n");
+         out.println("<button onclick=\"location.href = '/LibrarySearch/libraryFormSearch.html';\""
+         		+ " id=\"mybutton\" class=\"float-center submit-button\">Search Data</button>\n");
+         out.println("</div>\n");
+         out.println("</body>\n");
+         out.println("</html>");
          rs.close();
          preparedStatement.close();
          connection.close();
